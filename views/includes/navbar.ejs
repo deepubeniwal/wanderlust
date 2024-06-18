@@ -1,0 +1,58 @@
+<nav class="navbar navbar-expand-md bg-body-light border-bottom sticky-top">
+  <div class="container-fluid">
+    <a><i class="fa-solid fa-compass"></i></a>
+    <a class="navbar-brand" href="/listings">Wanderlust</a>
+    <button
+      class="navbar-toggler"
+      type="button"
+      data-bs-toggle="collapse"
+      data-bs-target="#navbarSupportedContent"
+      aria-controls="navbarSupportedContent"
+      aria-expanded="false"
+      aria-label="Toggle navigation"
+    >
+      <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <div>
+        <ul class="navbar-nav mb-2 mb-lg-0">
+        <li class="nav-item">
+          <a class="nav-link" href="/listings">Explore</a>
+        </li>
+       
+      </ul>
+      </div>
+      <div>
+        <a class="nav-link mx-3" href="/listings/new">Add New Listings</a>
+
+      </div>
+
+  <div class="navbar-nav search-btn ms-auto">
+      <form action="/listings/search" class="d-flex search-form ms-md-auto flex-column flex-sm-row nav-item" role="search" >
+          <input
+            class="form-control flex-shrink-0 flex-sm-shrink-1 me-2"
+            type="search"
+            name="q"
+            placeholder="Search Destination"
+            aria-label="Search"
+          />
+          <button class="btn btn-outline-success mt-sm-0" type="submit">Search</button> 
+        </form>
+          </div>
+
+
+          
+
+      
+         <% if(!currUser){ %>
+          <button class="btn btn-outline-success mx-2 rounded-pill"><a href="/signup" class=" login-btn nav-link  ">Sign Up</a></button>
+          <button class="btn btn-outline-success  rounded-pill"><a href="/login" class=" login-btn nav-link"> Log In</a></button>
+        <% } %> <% if(currUser){ %>
+          <button class="btn btn-outline-success  rounded-pill"><a href="/logout" class=" login-btn nav-link">Log Out</a></button>
+        <% } %>
+    
+       
+      </div>
+    </div>
+  </div>
+</nav>

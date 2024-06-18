@@ -1,0 +1,160 @@
+<% layout("/layouts/boilerplate") %>
+
+<style>
+  #filters {
+  top: 78px;
+  background-color: white;
+  /* backdrop-filter: blur(44px); */
+  z-index: 999;
+  max-height: 50px;
+  display: flex;
+  flex-wrap: nowrap;
+  gap: 6px;
+  overflow-x: auto;
+  overflow-y: hidden;
+  margin-bottom: 12px;
+}
+.filter {
+  text-align: center;
+  margin-top: 4px;
+  height: 68px;
+  opacity: 0.7;
+  cursor: pointer;
+  flex-shrink: 0;
+}
+.filter + .filter {
+  /* apply all css to elements with filter class except first element */
+  margin-left: 1.4rem;
+}
+.filters .active {
+  opacity: 1;
+}
+.filter:hover {
+  opacity: 1;
+}
+.filter p {
+  font-size: 0.8rem !important;
+}
+
+.tax-info{
+  display: none;
+}
+
+.tax-toggle{
+  border: 1px solid black;
+  border-radius: 1rem;
+  padding: 0.5rem 1rem;
+  height: 2.8rem;
+  margin-left: 10rem ;
+  display: flex;
+  align-items: center; 
+
+}
+
+.main-content{
+  padding: 0 5rem;
+}
+
+</style>
+
+
+  <div class="main-content">
+
+    <div id="filters" class="mt-2 ">
+      <div class="filter">
+        <div><i class="fa-solid fa-fire"></i></div>
+        <p>Trending</p>
+      </div>
+      <div class="filter">
+        <div><i class="fa-solid fa-bed"></i></div>
+        <p>Rooms</p>
+      </div>
+      <div class="filter">
+        <div><i class="fa-solid fa-mountain-city"></i></div>
+        <p>Iconic-Citites</p>
+      </div>
+      <div class="filter">
+        <div><i class="fa-solid fa-mountain"></i></div>
+        <p>Mountains</p>
+      </div>
+      <div class="filter">
+        <div><i class="fa-brands fa-fort-awesome"></i></div>
+        <p>Castles</p>
+      </div>
+      <div class="filter">
+        <div><i class="fa-solid fa-campground"></i></div>
+        <p>Camping</p>
+      </div>
+      <div class="filter">
+        <div><i class="fa-solid fa-person-swimming"></i></div>
+        <p>Amazing Pools</p>
+      </div>
+      <div class="filter">
+        <div><i class="fa-solid fa-cow"></i></div>
+        <p>Farms</p>
+      </div>
+      <div class="filter">
+        <div><i class="fa-solid fa-snowflake"></i></div>
+        <p>Arctic</p>
+      </div>
+      <div class="tax-toggle ">
+        <div class="form-check-reverse form-switch">
+          <input class="form-check-input" type="checkbox" id="flexSwitchCheckDefault">
+          <label class="form-check-label" for="flexSwitchCheckDefault">Display Total After Taxes</label>
+        </div>
+      </div>
+      </div>
+      
+    
+      <div class="mt-3 row  row-cols-lg-4 row-cols-md-3 row-cols-sm-2 row-cols-1" >
+      <% for(let listing of allListings){ %>
+      <div class="card col li-card"  >
+          <a href="/listings/<%= listing._id %>"><img src="<%= listing.image.url %>" class="card-img-top card-effect" style="height: 20rem;" alt="ListingsImage..."></a>
+  
+          <div class="card-body">
+            <b><h5 class="card-title"><%=listing.title %></h5></b>
+            <p class="card-text"><%=listing.description%></p>
+            
+  
+            <p> &#8377; <%=listing.price.toLocaleString("en-IN")%>/Night <i class="tax-info">&nbsp; &nbsp; +18% GST</i></p>
+            
+            <a href="/listings/<%= listing._id %>" class="btn btn-primary">See Details</a>
+          </div>
+        </div>
+        <%}%>
+       </div>
+  </div>
+    
+</div>
+
+<script>
+  let taxSwitch = document.getElementById("flexSwitchCheckDefault");
+  taxSwitch.addEventListener("click", ()=>{
+    let taxInfo = document.getElementsByClassName("tax-info");
+    for(info of taxInfo){
+      if( info.style.display != "inline"){
+        info.style.display = "inline";
+      }else{
+        info.style.display = "none";
+      }
+      
+    }
+
+  })
+
+  
+  const filters = document.querySelectorAll(".filter");
+  let filterValue = location.pathname.split("/")[3];
+  filters.forEach((filter) => {
+    filter.addEventListener("click", (e) => {
+      location.pathname = `/listings/filters/${filter.children[1].innerText}`;
+    });
+    if (filterValue === filter.children[1].innerText) {
+      filter.classList.add("active");
+    }
+  });
+  
+
+
+
+</script>
